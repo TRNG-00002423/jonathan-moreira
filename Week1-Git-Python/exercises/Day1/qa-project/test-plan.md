@@ -15,3 +15,6 @@
 - Password reset
 - User profile management
 - Admin dashboard
+- Shopping cart
+- Payment processing
+
