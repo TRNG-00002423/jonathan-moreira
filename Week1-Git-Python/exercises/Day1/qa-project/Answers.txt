@@ -1,0 +1,80 @@
+# Task 1
+mkdir qa-project
+cd qa-project
+echo "# QA Project
+> A quality assurance automation project
+> " > README.md
+git add README.md
+git commit -m "Initial commit: add README"
+
+# Task 2
+git checkout -b feature/add-test-plan
+git branch
+$ echo "# Test Plan
+
+## Scope
+- Login functionality
+- User registration
+- Password reset
+
+## Test Types
+- Unit tests
+- Integration tests
+- End-to-end tests " > test-plan.md
+git add test-plan.md
+git commit -m "Add test plan document"
+
+echo "# Test Cases
+## TC-001: Valid Login
+- **Input:** Valid username and password
+- **Expected:** Redirect to dashboard
+
+## TC-002: Invalid Login
+- **Input:** Invalid password
+- **Expected:** Error message displayed" > test-cases.md
+git add test-cases.md
+git commit -m "Add initial test cases"
+git log --oneline
+
+# Task 3
+They are in the feature/add-test-plan branch
+
+# Task 4
+echo "## Team
+- Lead: Your Name
+- Role: QA Engineer" >> README.md
+git add README.md
+git commit -m "Add team section to README"
+
+# Task 5
+git merge feature/add-test-plan
+ls
+git log --oneline --graph
+git branch -d feature/add-test-plan
+
+# Task 6
+git checkout -b feature/update-test-plan
+echo "## Scope
+- Login functionality
+- User registration
+- Password reset
+- Shopping cart
+- Payment processing" >> test-plan.md
+git add test-plan.md
+git commit -m "Expand test plan scope on feature branch"
+
+git checkout master 
+echo "## Scope
+- Login functionality
+- User registration
+- Password reset
+- User profile management
+- Admin dashboard" >> test-plan.md
+git add test-plan.md
+git commit -m "Update test plan scope on main"
+git merge feature/update-test-plan
+cat test-plan.md
+notepad test-plan.md
+git commit -m "Resolve merge conflict: combine scope updates"
+git log --oneline --graph
+
