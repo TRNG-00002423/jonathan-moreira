@@ -154,6 +154,22 @@ def analyze_results(*results):
 
     return (passed_count, failed_count, pass_rate, avg_duration)
 
+def generate_report(*results):
+    """Generate a formatted test report string.
+
+    Calls analyze_results() internally and formats the output.
+
+    Returns: formatted multi-line string
+    """
+    passed, failed, rate, avg = analyze_results(*results)
+    return(
+      f"Total tests:  {passed + failed:>16}\n"
+      f"Tests Passed: {passed:>16}\n"
+      f"Tests Failed: {failed:>16}\n"
+      f"Pass Rate:    {rate:>16.1f}%\n"
+      f"Avg Duration: {format_duration(avg,"ms"):>16}\n")
+    
+
 assert format_test_name("Valid Login") == "test_valid_login"
 assert format_test_name("  Search Results  ") == "test_search_results"
 assert is_valid_test_name("test_login") == True
@@ -189,3 +205,5 @@ passed, failed, rate, avg = analyze_results(*results)
 assert passed == 3
 assert failed == 1
 assert rate == 75.0
+
+generate_report(*results)
