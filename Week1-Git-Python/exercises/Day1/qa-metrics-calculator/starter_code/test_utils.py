@@ -121,7 +121,38 @@ def build_test_config(**settings):
     }
 
     config.update(settings)
-    return config;
+    return config
+
+def analyze_results(*results):
+    """Analyze a list of test result dicts.
+
+    Args:
+        *results: test result dicts (from create_test_result)
+
+    Returns:
+        tuple of (passed_count, failed_count, pass_rate, avg_duration)
+    """
+    passed_count = 0
+    failed_count = 0
+    pass_rate = 0
+    total_duration = 0
+
+    if not results:
+        return (0,0,0,0)
+
+    for r in results:
+        if r["status"] == "pass":
+            passed_count+= 1
+        else:
+            failed_count+= 1
+
+        total_duration += r["duration_ms"]
+
+    total_tests = passed_count + failed_count
+    pass_rate = (passed_count / total_tests) * 100
+    avg_duration = total_duration  / total_tests 
+
+    return (passed_count, failed_count, pass_rate, avg_duration)
 
 assert format_test_name("Valid Login") == "test_valid_login"
 assert format_test_name("  Search Results  ") == "test_search_results"
@@ -147,3 +178,14 @@ config = build_test_config(headless=True, timeout=60)
 assert config["browser"] == "chrome"  # default
 assert config["headless"] == True     # overridden
 assert config["timeout"] == 60       # overridden
+
+results = [
+    create_test_result("test_login", "pass", 1200),
+    create_test_result("test_search", "pass", 850),
+    create_test_result("test_checkout", "fail", 2300, "Timeout"),
+    create_test_result("test_profile", "pass", 450),
+]
+passed, failed, rate, avg = analyze_results(*results)
+assert passed == 3
+assert failed == 1
+assert rate == 75.0
