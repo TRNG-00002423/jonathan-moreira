@@ -33,9 +33,36 @@ def is_valid_test_name(name):
         and all(char.islower() or char.isdigit() or char == "_" for char in name)
     )
 
+def create_test_result(name, status="pass", duration_ms=0, error=None):
+    """Create a test result dictionary.
+
+    Args:
+        name: Test name (required)
+        status: "pass" or "fail" (default: "pass")
+        duration_ms: Execution time in ms (default: 0)
+        error: Error message if failed (default: None)
+
+    Returns:
+        dict with keys: name, status, duration_ms, error
+    """
+    test_result = {
+        "name": name,
+        "status": status,
+        "duration_ms": duration_ms,
+        "error": error
+    }
+
+    return test_result
+
 
 assert format_test_name("Valid Login") == "test_valid_login"
 assert format_test_name("  Search Results  ") == "test_search_results"
 assert is_valid_test_name("test_login") == True
 assert is_valid_test_name("login_test") == False
 assert is_valid_test_name("test_") == False
+
+r1 = create_test_result("test_login")
+assert r1 == {"name": "test_login", "status": "pass", "duration_ms": 0, "error": None}
+r2 = create_test_result("test_checkout", status="fail", duration_ms=2300, error="Timeout")
+assert r2["status"] == "fail"
+assert r2["error"] == "Timeout"
