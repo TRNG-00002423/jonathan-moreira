@@ -97,7 +97,32 @@ def calculate_stats(*scores):
     }
 
     return statistics
-        
+
+def build_test_config(**settings):
+    """Build a test configuration with defaults.
+
+    Default config:
+        browser: "chrome"
+        headless: False
+        timeout: 30
+        retries: 0
+        base_url: "http://localhost:3000"
+
+    Any **settings passed override the defaults.
+
+    Returns: dict
+    """
+    config = {
+        "browser": "chrome",
+        "headless": False,
+        "timeout": 30,
+        "retries": 0,
+        "base_url": "http://localhost:3000"
+    }
+
+    config.update(settings)
+    return config;
+
 assert format_test_name("Valid Login") == "test_valid_login"
 assert format_test_name("  Search Results  ") == "test_search_results"
 assert is_valid_test_name("test_login") == True
@@ -117,3 +142,8 @@ assert stats["count"] == 5
 assert stats["average"] == 87.6
 assert stats["min"] == 78
 assert stats["max"] == 95
+
+config = build_test_config(headless=True, timeout=60)
+assert config["browser"] == "chrome"  # default
+assert config["headless"] == True     # overridden
+assert config["timeout"] == 60       # overridden
