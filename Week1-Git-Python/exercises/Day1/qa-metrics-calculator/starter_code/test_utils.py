@@ -64,15 +64,39 @@ def format_duration(ms, unit="ms"):
     Returns:
         Formatted string like "1,200ms" or "1.20s" or "0.02min"
     """
+    ms_in_sec = 1000
+    ms_in_min = 60000
     match unit:
         case "ms":
             return f"{ms:,}ms"
         case "s":
-            return f"{ms/1000:.2f}s"
+            return f"{ms/ms_in_sec:.2f}s"
         case "min":
-            return f"{ms/60000:.2f}min"
+            return f"{ms/ms_in_min:.2f}min"
         case _:
             return f"Unknown unit"
+        
+def calculate_stats(*scores):
+    """Calculate statistics for any number of scores.
+
+    Returns:
+        dict with keys: count, total, average, min, max
+
+    Raises:
+        ValueError if no scores provided
+    """
+    if not scores:
+        return f"ValueError"
+    
+    statistics = {
+        "count": len(scores),
+        "total": sum(scores),
+        "average": sum(scores) / len(scores),
+        "min": min(scores),
+        "max": max(scores),
+    }
+
+    return statistics
         
 assert format_test_name("Valid Login") == "test_valid_login"
 assert format_test_name("  Search Results  ") == "test_search_results"
@@ -87,3 +111,9 @@ assert r2["status"] == "fail"
 assert r2["error"] == "Timeout"
 assert format_duration(1200) == "1,200ms"
 assert format_duration(1200, "s") == "1.20s"
+
+stats = calculate_stats(85, 92, 78, 95, 88)
+assert stats["count"] == 5
+assert stats["average"] == 87.6
+assert stats["min"] == 78
+assert stats["max"] == 95
