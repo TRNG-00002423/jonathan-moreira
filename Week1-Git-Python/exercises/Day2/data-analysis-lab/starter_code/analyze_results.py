@@ -27,6 +27,15 @@ df["passed"] = df["status"] == "pass"
 module_pass_rate = df.groupby("module")["passed"].mean() * 100
 module_avg_duration = df.groupby("module")["passed"].mean()
 module_test_count = df.groupby("module")["test_name"].count()
-print(f"{module_pass_rate}")
-print(f"{module_avg_duration}")
-print(f"{module_test_count}")
+print(f"Module Pass Rate: \n{module_pass_rate}")
+print(f"Module Avg Duration: \n{module_avg_duration}")
+print(f"Module Test Count: \n{module_test_count}")
+
+# Filter and display
+failed_tests = df[df["status"] == "fail"][["test_name", "module", "duration_ms"]]
+slow_tests = df[df["duration_ms"] > 1500][["test_name", "duration_ms"]]
+slow_tests = df[df["duration_ms"] > 1500][["test_name", "duration_ms"]]
+auth_tests = df[df["module"] == "auth"][["test_name", "module"]]
+print(f"Failed Tests: \n{failed_tests}")
+print(f"Slow Tests: \n{slow_tests}")
+print(f"Auth Tests: \n{auth_tests}")
