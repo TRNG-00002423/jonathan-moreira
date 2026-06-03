@@ -21,3 +21,12 @@ print(f"Slowest: \n{slowest}")
 
 fastest = df.loc[df["duration_ms"].idxmin()]
 print(f"Fastest: \n{fastest}")
+
+# Group by module
+df["passed"] = df["status"] == "pass"
+module_pass_rate = df.groupby("module")["passed"].mean() * 100
+module_avg_duration = df.groupby("module")["passed"].mean()
+module_test_count = df.groupby("module")["test_name"].count()
+print(f"{module_pass_rate}")
+print(f"{module_avg_duration}")
+print(f"{module_test_count}")
