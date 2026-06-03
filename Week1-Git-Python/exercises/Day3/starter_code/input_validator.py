@@ -1,6 +1,6 @@
 def validate_password(password):
     requirements = {
-        "valid" : False,
+        "valid" : True,
         "error" : []
     }
     if len(password) < 8:
@@ -19,7 +19,14 @@ def validate_password(password):
         requirements["valid"] = False
         requirements["error"].append("Password must contain at least one digit")
 
+    special_chars = "!@#$%^&*"
+    if not any(char in special_chars for char in password):
+        requirements["valid"] = False
+        requirements["error"].append("Password must contain at least one special character (!@#$%^&*)")
+
     return requirements
 
-print(validate_password("abc"))
-print(validate_password("ABCDEFGH"))    # no lower, no digit, no special
+print(validate_password("Abc123!x"))
+print(validate_password("abc"))    
+print(validate_password("ABCDEFGH"))
+print(validate_password("ABCDefgh1!"))    
