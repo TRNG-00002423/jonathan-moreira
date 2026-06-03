@@ -15,6 +15,10 @@ def validate_password(password):
         requirements["valid"] = False
         requirements["error"].append("Password must contain at least one lowercase letter")
 
+    if not any(char.isdigit() for char in password):
+        requirements["valid"] = False
+        requirements["error"].append("Password must contain at least one digit")
+
     return requirements
 
 print(validate_password("abc"))
