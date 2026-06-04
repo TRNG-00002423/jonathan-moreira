@@ -49,9 +49,9 @@ class TestResult:
         duration_ms (float): How long it took
         error_message (str or None): Error details if failed
     """
-    def __init__(self, test_case, duration_ms, error_message = None):
-        self.test_name = test_case.name
-        self.status = "pass" if test_case.run() else "fail"
+    def __init__(self, test_name, status, duration_ms, error_message = None):
+        self.test_name = test_name
+        self.status = status
         self.duration_ms = duration_ms
         self.error_message = error_message
 
@@ -89,3 +89,47 @@ class TestSuite:
             if test.name == test_name:
                 self.tests.remove(test)
     
+    def get_by_priority(self, priority):
+        tests_priority = []
+        for test in self.tests:
+            if test.priority == priority:
+                tests_priority.append(test)
+        
+        return tests_priority
+    
+    def count(self):
+        return len(self.tests)
+
+
+class TestRunner:
+    """Executes a TestSuite and collects results.
+
+    Methods:
+        run(suite): Run all tests in a suite, return list of TestResult
+        summary(results): Print a formatted summary
+    """
+    # TODO: Implement
+
+    def run(self, suite):
+        """Run each test in the suite and return a list of TestResults."""
+        import time
+        import random
+        results = []
+        for test in suite.tests:
+            start = time.time()
+            passed = test.run()
+            duration = (time.time() - start) * 1000
+            # Simulate varying duration
+            duration += random.uniform(50, 500)
+            result = TestResult(
+                test.name,
+                "pass" if passed else "fail",
+                round(duration, 1),
+                None if passed else f"{test.name} assertion failed"
+            )
+            results.append(result)
+        return results
+    
+    def summary(self, results):
+        for result in results:
+            print(result.summary())
