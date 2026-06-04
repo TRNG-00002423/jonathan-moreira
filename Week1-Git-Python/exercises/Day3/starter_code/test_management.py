@@ -10,7 +10,6 @@ class TestCase:
         priority (str): "high", "medium", or "low" (default: "medium")
         tags (list): Labels like ["smoke", "regression"]
     """
-    # TODO: Implement __init__, run(), and a class method
 
     total_created = 0
 
@@ -41,11 +40,26 @@ class TestCase:
         return name.startswith("test_") and " " not in name
 
 
-test1 = TestCase("test_login","test the login", "high", ["smoke","regression"])
-print(f"{test1.name}")
-print(f"{test1.tags}")
-print(f"{TestCase.is_valid_name(test1.name)}")
+class TestResult:
+    """The outcome of running a single test.
 
-test2 = TestCase.from_dict({"name": "test_logout", "description": "test_logout" , "priority" : "high", "tags" : ["smoke"]})
-print(f"{test2.name}")
-print(f"{test2.tags}")
+    Instance Attributes:
+        test_name (str): Which test was run
+        status (str): "pass" or "fail"
+        duration_ms (float): How long it took
+        error_message (str or None): Error details if failed
+    """
+    def __init__(self, test_case, duration_ms, error_message = None):
+        self.test_name = test_case.name
+        self.status = "pass" if test_case.run() else "fail"
+        self.duration_ms = duration_ms
+        self.error_message = error_message
+
+
+
+    def summary(self):
+        """Return a one-line summary like: '✅ test_login (120ms)'"""
+        if self.status == "pass":
+            return f"✅ {self.test_name} ({self.duration_ms}ms)"
+        else:
+            return f"❌ {self.test_name} ({self.duration_ms}ms)"
