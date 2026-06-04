@@ -63,3 +63,29 @@ class TestResult:
             return f"✅ {self.test_name} ({self.duration_ms}ms)"
         else:
             return f"❌ {self.test_name} ({self.duration_ms}ms)"
+
+
+class TestSuite:
+    """A collection of test cases.
+
+    Instance Attributes:
+        name (str): Suite name
+        tests (list): List of TestCase objects
+    Methods:
+        add_test(test): Add a TestCase
+        remove_test(name): Remove by name
+        get_by_priority(priority): Return tests matching the priority
+        count(): Return number of tests
+    """
+    def __init__(self, name, tests = None):
+        self.name = name
+        self.tests = tests if tests is not None else []
+
+    def add_test(self,test_case):
+        self.tests.append(test_case)
+
+    def remove_test(self, test_name):
+        for test in self.tests:
+            if test.name == test_name:
+                self.tests.remove(test)
+    
