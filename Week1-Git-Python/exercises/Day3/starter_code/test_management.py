@@ -133,3 +133,13 @@ class TestRunner:
     def summary(self, results):
         for result in results:
             print(result.summary())
+
+def main():
+    test_case_1 = TestCase("test_login", "tests login working", ["smoke"], "medium")
+    test_case_2 = TestCase("test_login_fail", "tests login fails when submitting empty login", ["regression"])
+    test_case_3 = TestCase("test_payment", "tests payment working", ["regression"], "high")
+    test_case_4 = TestCase.from_dict({"name"        : "test_payment_fail", 
+                                      "description" : "tests payment fails"})
+    test_case_5 = TestCase("test_withdraw", "tests withdraw working", ["regression"], "low")
+    test_case_6 = TestCase.from_dict({"name"        : "test_withdraw_fail", 
+                                      "description" :"tests withdraw fails"})
