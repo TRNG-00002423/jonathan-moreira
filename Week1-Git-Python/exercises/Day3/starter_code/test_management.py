@@ -60,9 +60,9 @@ class TestResult:
     def summary(self):
         """Return a one-line summary like: '✅ test_login (120ms)'"""
         if self.status == "pass":
-            return f"✅ {self.test_name} ({self.duration_ms}ms)"
+            return f"✅ {self.test_name:<19} ({self.duration_ms}ms)"
         else:
-            return f"❌ {self.test_name} ({self.duration_ms}ms)"
+            return f"❌ {self.test_name:<19} ({self.duration_ms}ms)"
 
 
 class TestSuite:
@@ -108,8 +108,6 @@ class TestRunner:
         run(suite): Run all tests in a suite, return list of TestResult
         summary(results): Print a formatted summary
     """
-    # TODO: Implement
-
     def run(self, suite):
         """Run each test in the suite and return a list of TestResults."""
         import time
@@ -131,15 +129,35 @@ class TestRunner:
         return results
     
     def summary(self, results):
+        print(f"\n===== Tests Summary =====")
         for result in results:
             print(result.summary())
 
 def main():
     test_case_1 = TestCase("test_login", "tests login working", ["smoke"], "medium")
-    test_case_2 = TestCase("test_login_fail", "tests login fails when submitting empty login", ["regression"])
+    test_case_2 = TestCase("test_login_fail", "tests login fails when submitting empty login", ["regression"], "high")
     test_case_3 = TestCase("test_payment", "tests payment working", ["regression"], "high")
     test_case_4 = TestCase.from_dict({"name"        : "test_payment_fail", 
                                       "description" : "tests payment fails"})
     test_case_5 = TestCase("test_withdraw", "tests withdraw working", ["regression"], "low")
     test_case_6 = TestCase.from_dict({"name"        : "test_withdraw_fail", 
                                       "description" :"tests withdraw fails"})
+    
+    test_suite = TestSuite("test")
+    test_suite.add_test(test_case_1)
+    test_suite.add_test(test_case_2)
+    test_suite.add_test(test_case_3)
+    test_suite.add_test(test_case_4)
+    test_suite.add_test(test_case_5)
+    test_suite.add_test(test_case_6)
+
+    high_priority = test_suite.get_by_priority("high")
+    print(f"===== High Priority Tests =====")
+    for test in high_priority:
+        print(test.name)
+
+    test_runner = TestRunner()
+    test_results = test_runner.run(test_suite)
+    test_runner.summary(test_results)
+
+main()
