@@ -151,18 +151,53 @@ def main():
     # Print the updated total using len(inv).
     # This demonstrates tuples as immutable, structured data records.
     # (ref: written/4-Thursday/tuples.md — "Tuples as Fixed Records")
+
     configs = [
-            ("Monitor", 349.99, 8, "electronics"),
-            ("USB Hub",  24.99, 30, "accessories"),
-            ("Mouse",  30.99, 17, "electronics"),
-        ]
+        ("Monitor", 349.99, 8, "electronics"),
+        ("USB Hub",  24.99, 30, "accessories"),
+        ("T-Shirt", 50.00, 100, "clothing")
+    ]
+    print(len(inv))
+    for product_config in configs:
+        product = Product(*product_config)
+        inv.add_product(product)
+    print(len(inv))
+
+    section("11. Sell all remaining stock")
+    remaining = inv.get_product(5).stock
+    print(inv.get_product(5).stock)
+    print(remaining)
+    inv.sell(5, remaining)
+    print(inv.get_product(5).stock)
+
+    section("12. Remove a product and try to sell")
+    try:
+        inv.remove_product(4)
+        inv.sell(4, 1)
+    except ProductNotFoundError as e:
+        print(e)
+
+
+    section("12. Add duplicates")
+    print(inv.add_product(Product("Duplicate", 999.99, stock=15, category="electronics")))
+    print(inv.add_product(Product("Duplicate", 999.99, stock=15, category="electronics")))
+    print("Duplicates added")
+
+    section("13. Restock nonexistant product")
     
-    print(f"Previous Total items: {len(inv)}")
-    for product in configs:
-        product_name,product_prize,product_quantity,product_category = product
-        inv.add_product(Product(product_name,product_prize,product_quantity,product_category))
+    try: 
+        inv.restock(100, 200)
+    except ProductNotFoundError as e:
+        print(e)
     
-    print(f"New Total items: {len(inv)}")
+    section("14. Search case insensitive categories")
+    print(inv.by_category("ELECTRONICS"))
+    print(inv.by_category("electronics"))
+
+
+
+
+
 
 if __name__ == "__main__":
     main()

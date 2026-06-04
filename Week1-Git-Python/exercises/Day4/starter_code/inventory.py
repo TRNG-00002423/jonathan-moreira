@@ -150,7 +150,7 @@ class Inventory:
 
         Use a list comprehension. Compare category.lower() to product.category.lower().
         """
-        return [product for product in self.products.values() if category == product.category]
+        return [product for product in self.products.values() if category.lower() == product.category.lower()]
 
     def in_stock(self) -> list[Product]:
         """Return all products with stock > 0.
