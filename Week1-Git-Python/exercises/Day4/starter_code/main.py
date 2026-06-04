@@ -151,7 +151,18 @@ def main():
     # Print the updated total using len(inv).
     # This demonstrates tuples as immutable, structured data records.
     # (ref: written/4-Thursday/tuples.md — "Tuples as Fixed Records")
-
+    configs = [
+            ("Monitor", 349.99, 8, "electronics"),
+            ("USB Hub",  24.99, 30, "accessories"),
+            ("Mouse",  30.99, 17, "electronics"),
+        ]
+    
+    print(f"Previous Total items: {len(inv)}")
+    for product in configs:
+        product_name,product_prize,product_quantity,product_category = product
+        inv.add_product(Product(product_name,product_prize,product_quantity,product_category))
+    
+    print(f"New Total items: {len(inv)}")
 
 if __name__ == "__main__":
     main()
