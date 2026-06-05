@@ -48,13 +48,19 @@ section("Task 1: Lambda & Sorting")
 # TODO 1a: Sort test_results by duration_ms ascending.
 # Use sorted() with a lambda key.
 # Expected: test_logout (300ms) first, test_payment (3100ms) last.
-by_duration = sorted(lambda test_results: test_results, "duration_ms")
+by_duration = sorted(test_results, key= lambda test: test["duration_ms"])
+print(by_duration)
 
 # TODO 1b: Sort by module name, then by duration_ms within each module.
-by_module_duration = None  # TODO
+by_module_duration = sorted(test_results, key= lambda test: (test["module"], test["duration_ms"]))
+print("*" * 10)
+print(by_module_duration)
 
 # TODO 1c: Sort so "fail" tests appear before "pass" tests, then alphabetically by name.
-fail_first = None  # TODO
+fail_first = sorted(test_results, key= lambda test: (test["status"] != "fail", test["name"]))
+print("*" * 10)
+print(fail_first)
+
 
 # Uncomment to print:
 # for r in by_duration:
