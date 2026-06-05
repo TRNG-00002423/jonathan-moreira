@@ -144,27 +144,29 @@ actual_codes   = [200, 500, 201, 403]
 
 # TODO 5a: Compare expected vs actual codes. Print ✅ or ❌ for each endpoint.
 # Format: "✅ /login: expected=200, actual=200"
+for endpoint, expected_code, actual_code in zip(endpoints, expected_codes, actual_codes):
+    status = "✅" if expected_code == actual_code else "❌"
+    print(f"{status} {endpoint}: expected={expected_code}, actual {actual_code}")
 
 # TODO 5b: Unzip test_results into 4 parallel tuples:
 #   (names, modules, durations, statuses)
 # Hint: zip(*[[r['name'], r['module'], ...] for r in test_results])
-
+names, modules, durations, statuses = zip(*[
+    [   test["name"],
+        test["module"],
+        test["duration_ms"],
+        test["status"]
+    ] 
+    for test in test_results])
+print(names)
+print(modules)
+print(durations)
+print(statuses)
 # TODO 5c: Build a dict mapping test names to duration_ms using zip().
 # Expected: {'test_login': 1200, 'test_register': 2100, ...}
-name_to_duration = None  # TODO
-
-
-# ── Stretch: Full Pipeline ────────────────────────────────────────────────────
-section("Stretch: Full Pipeline")
-
-# TODO: Using ONE expression (no intermediate variables), compute:
-#   The average duration (ms) of failed tests.
-# Steps: filter failures → extract durations → sum with reduce → divide by count
-# Hint: you may need len(list(filter(...))) for the count (watch out — iterators are consumed!)
-
-# avg_fail_duration = ...
-# print(f"  Avg failure duration: {avg_fail_duration:.1f}ms")
-
+name_to_duration = dict(zip(names, durations))
+print("*" * 10)
+print(name_to_duration)
 
 if __name__ == "__main__":
     print(f"\n{'=' * 55}")
