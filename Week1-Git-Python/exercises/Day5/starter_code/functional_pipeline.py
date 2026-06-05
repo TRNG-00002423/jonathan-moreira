@@ -45,26 +45,23 @@ def section(title: str) -> None:
 # ── Task 1: Lambda & Sorting ──────────────────────────────────────────────────
 section("Task 1: Lambda & Sorting")
 
-# TODO 1a: Sort test_results by duration_ms ascending.
+# 1a: Sort test_results by duration_ms ascending.
 # Use sorted() with a lambda key.
 # Expected: test_logout (300ms) first, test_payment (3100ms) last.
 by_duration = sorted(test_results, key= lambda test: test["duration_ms"])
-print(by_duration)
 
-# TODO 1b: Sort by module name, then by duration_ms within each module.
+
+# 1b: Sort by module name, then by duration_ms within each module.
 by_module_duration = sorted(test_results, key= lambda test: (test["module"], test["duration_ms"]))
-print("*" * 10)
-print(by_module_duration)
 
-# TODO 1c: Sort so "fail" tests appear before "pass" tests, then alphabetically by name.
+
+#  1c: Sort so "fail" tests appear before "pass" tests, then alphabetically by name.
 fail_first = sorted(test_results, key= lambda test: (test["status"] != "fail", test["name"]))
-print("*" * 10)
-print(fail_first)
 
 
 # Uncomment to print:
-# for r in by_duration:
-#     print(f"  {r['name']}: {r['duration_ms']}ms")
+for r in by_duration:
+    print(f"  {r['name']}: {r['duration_ms']}ms")
 
 
 # ── Task 2: map() ─────────────────────────────────────────────────────────────
@@ -73,20 +70,20 @@ section("Task 2: map()")
 
 # TODO 2a: Extract just the test names into a list.
 # Expected: ['test_login', 'test_register', 'test_logout', ...]
-names = None  # TODO — use map()
+names = list(map(lambda test: test["name"], test_results))
 
 # TODO 2b: Transform each record into a status badge string.
 # Format: "✅ test_login (1200ms)"  or  "❌ test_search (850ms)"
-badges = None  # TODO — use map() with a lambda
+badges = list(map(lambda test: f"{'✅' if test['status'] == 'pass' else '❌'} {test['name']} ({test['duration_ms']}ms)", test_results))
 
 # TODO 2c: Extract the set of unique module names.
 # Expected: {'auth', 'search', 'checkout', 'profile'}
-modules = None  # TODO — use set() + map()
+modules = set(map(lambda test: test["module"], test_results))
 
 # Uncomment to print:
-# print(f"  Names:   {names}")
-# for badge in badges: print(f"  {badge}")
-# print(f"  Modules: {modules}")
+print(f"  Names:   {names}")
+for badge in badges: print(f"  {badge}")
+print(f"  Modules: {modules}")
 
 
 # ── Task 3: filter() ──────────────────────────────────────────────────────────
@@ -94,19 +91,20 @@ section("Task 3: filter()")
 # ref: written/5-Friday/filter.md
 
 # TODO 3a: Get all failed tests.
-failures = None  # TODO — use filter()
+failures = list(filter(lambda test: test["status"] == "fail", test_results))
 
 # TODO 3b: Get all tests slower than 1500ms.
-slow_tests = None  # TODO — use filter()
+SLOW_THRESHOLD_MS = 1500
+slow_tests = list(filter(lambda test: test["duration_ms"] > SLOW_THRESHOLD_MS, test_results))
 
 # TODO 3c: Get all tests that BOTH failed AND are slower than 1500ms.
 # Hint: combine conditions in the lambda, OR chain two filter() calls.
-critical = None  # TODO
+critical = list(filter(lambda test: test["status"] != "pass" and test["duration_ms"] > SLOW_THRESHOLD_MS, test_results))
 
 # Uncomment to print:
-# print(f"  Failures:  {[f['name'] for f in failures]}")
-# print(f"  Slow:      {[s['name'] for s in slow_tests]}")
-# print(f"  Critical:  {[c['name'] for c in critical]}")
+print(f"  Failures:  {[f['name'] for f in failures]}")
+print(f"  Slow:      {[s['name'] for s in slow_tests]}")
+print(f"  Critical:  {[c['name'] for c in critical]}")
 
 
 # ── Task 4: reduce() ──────────────────────────────────────────────────────────
