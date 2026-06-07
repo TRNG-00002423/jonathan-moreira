@@ -9,9 +9,12 @@ Requirements:
 
 import logging
 from logging.handlers import RotatingFileHandler
+import os
+
+log_dir = os.path.dirname(os.path.abspath(__file__))
 
 
-def setup_logging(log_file="test_framework.log", console_level=logging.INFO):
+def setup_logging(log_file= os.path.join(log_dir, "test_framework.log"), console_level=logging.INFO):
     """Configure and return the root logger for the framework.
 
     Args:
@@ -23,7 +26,8 @@ def setup_logging(log_file="test_framework.log", console_level=logging.INFO):
     """
     # Create logger named "qa_framework"
     logger = logging.getLogger("qa_framework")
-    
+    logger.setLevel(logging.DEBUG)
+
     # Add StreamHandler for console (INFO+)
     log_console = logging.StreamHandler()
     log_console.setLevel(console_level)
@@ -45,7 +49,7 @@ def setup_logging(log_file="test_framework.log", console_level=logging.INFO):
 
     logger.addHandler(log_console)
     logger.addHandler(file_handler)
-    # TODO: Return the configured logger
-    
+
+    # Return the configured logger
     return logger
     
