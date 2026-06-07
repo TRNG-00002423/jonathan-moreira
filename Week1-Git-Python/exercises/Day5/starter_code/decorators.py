@@ -71,3 +71,39 @@ def flaky_function():
 
 result = flaky_function()
 assert result == "success"
+
+
+def log_calls(func):
+    """Decorator that logs function calls with arguments and return value.
+
+    Output:
+        "📞 Calling func_name(arg1, arg2, key=val)"
+        "✅ func_name → return_value"
+    """
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        func_name = func.__name__
+        func_args = ", ".join([str(arg) for arg in args] + [f"{k}={v}" for k,v in kwargs.items()])
+        print(f"📞 Calling {func_name}({func_args})")
+        func_result = func(*args, **kwargs)
+        print(f"✅ {func_name} → {func_result}")
+
+        return func_result
+    
+    return wrapper
+
+@log_calls
+def sum(a, b):
+    return a + b
+
+from unittest.mock import patch
+import io
+
+with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
+    result = sum(1, 2)
+    output = mock_stdout.getvalue()
+
+result = sum(1,2)
+assert result == 3
+assert "📞 Calling sum(1, 2)" in output
+assert "✅ sum → 3" in output
