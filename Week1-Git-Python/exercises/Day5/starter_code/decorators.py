@@ -107,3 +107,17 @@ result = sum(1,2)
 assert result == 3
 assert "📞 Calling sum(1, 2)" in output
 assert "✅ sum → 3" in output
+
+
+# Q: In what order do the decorators execute? Write your answer as a comment.
+# A: They are executed top-down
+@timer
+@log_calls
+@retry(max_attempts=2, delay=0.1)
+def process_data(data):
+    """Process data with timing, logging, and retry."""
+    if not data:
+        raise ValueError("Empty data")
+    return [x * 2 for x in data]
+
+result = process_data([1, 2, 3])
