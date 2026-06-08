@@ -35,7 +35,7 @@ def add_student():
 
     return jsonify({"id" : student_id,
                     "name" : student["name"],
-                    "course" : student["course"]})
+                    "course" : student["course"]}), 201
 
 
 if __name__ == "__main__":
