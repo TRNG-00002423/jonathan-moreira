@@ -1,0 +1,4 @@
+Number of items 5
+Total Price: $264.99
+Average line revenue: $53.00
+Max line revenue: C300: $99.99
