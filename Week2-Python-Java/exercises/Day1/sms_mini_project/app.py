@@ -37,6 +37,30 @@ def add_student():
                     "name" : student["name"],
                     "course" : student["course"]}), 201
 
+@app.put("/students/<int:id>")
+def update_student(id):
+
+    if id > len(students):
+        return "The student ID does not exsits", 404
+    
+    
+    student = request.get_json()
+    student["id"] = id
+
+    students[id - 1] = student
+
+    return jsonify({"id" : student["id"],
+                    "name" : student["name"],
+                    "course" : student["course"]})
+
+@app.delete("/students/<int:id>")
+def delete_student(id):
+    if id > len(students):
+        return "The student ID does not exsits", 404
+    
+    students.pop(id-1)
+
+    return jsonify({"message" : "Student deleted successfully"})
 
 if __name__ == "__main__":
     # Runs in the developer test mode
