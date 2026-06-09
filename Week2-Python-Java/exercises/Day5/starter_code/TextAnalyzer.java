@@ -10,6 +10,11 @@ import java.nio.file.Path;
  */
 public class TextAnalyzer {
 
+    /**
+     * Counts the amount of words in a txt file
+     * @param text the text string
+     * @return the total amount of words in the string
+     */
     public static int wordCount(String text) {
         int wordCount = 0;
         if(text.isBlank()){
@@ -22,6 +27,11 @@ public class TextAnalyzer {
         return wordCount;
     }
  
+    /**
+     * Checks if a string is a palindrome
+     * @param token string to check if it is a palindrome
+     * @return true if it is a palindrome, false otherwise
+     */
     public static boolean isPalindrome(String token) {
         String cleanToken = token.trim().toLowerCase();
         boolean isPalindrome = true;
@@ -33,16 +43,25 @@ public class TextAnalyzer {
         }
         return isPalindrome;
     }
-/*
+
+    /**
+     * Count the occurrences of a pattern in a string
+     * @param haystack the string where the pattern might be found
+     * @param needle the pattern to be counter in the string
+     * @return number of occurrences of the pattern
+     */
     public static int countOccurrences(String haystack, String needle) {
-        throw new UnsupportedOperationException("TODO");
+        String [] words  = haystack.split(needle);
+        int occurrences = words.length - 1;
+
+        return occurrences;
     }
-*/
+
     public static void main(String[] args) throws IOException {
         Path p = Path.of("sample.txt");
         String body = Files.readString(p);
         System.out.println("words=" + wordCount(body));
         System.out.println("palindrome(Radar)=" + isPalindrome("Radar"));
-        //System.out.println("occurrences of 'QA'=" + countOccurrences(body, "QA"));
+        System.out.println("occurrences of 'QA'=" + countOccurrences(body, "QA"));
     }
 }
