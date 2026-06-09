@@ -31,6 +31,7 @@ public class TicketMenu {
 
                 if(in.hasNextInt()){
                     optionSelected = in.nextInt();
+                    in.nextLine();
                 }
                 else{
                     String invalidInput = in.nextLine();
@@ -53,15 +54,16 @@ public class TicketMenu {
                         for(int i = 0; i < tickets.length; i++){
                             System.out.println(i + " " + tickets[i]);
                         }
-                        System.out.println("Please select the ticket index + priority");
                         
                         int index = 0;
                         int priority = 0;
                         do { 
-
+                            System.out.println("Please select the ticket index + priority");
+                            
                             if(in.hasNextInt()){
                                 index = in.nextInt();
                                 priority = in.nextInt();
+                                in.nextLine();
                             }
                             else{
                                 String invalidInput = in.nextLine();
@@ -73,7 +75,8 @@ public class TicketMenu {
                             if(index < 0 || index >= tickets.length){
                                 System.out.println("Please enter a valid index");
                             }
-                            else if (priority < 1 || priority > 3){
+
+                            if (priority < 1 || priority > 3){
                                 System.out.println("Please enter a valid priority");
                             }
                         } while ((index < 0 || index >= tickets.length) || (priority < 1 || priority > 3));
