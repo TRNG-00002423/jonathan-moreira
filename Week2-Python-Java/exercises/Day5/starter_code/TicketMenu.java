@@ -36,9 +36,6 @@ public class TicketMenu {
                     String invalidInput = in.nextLine();
                     System.out.println("ERROR: " + invalidInput + " is not a valid input!");
                 }
-
-
-
   
                 switch(optionSelected){
                     case 1:
@@ -53,12 +50,36 @@ public class TicketMenu {
                         System.out.println("===========");
                         System.out.println("Tickets");
                         System.out.println("===========");
-                        for(String ticket : tickets){
-                            System.out.println(ticket);
+                        for(int i = 0; i < tickets.length; i++){
+                            System.out.println(i + " " + tickets[i]);
                         }
                         System.out.println("Please select the ticket index + priority");
                         
-                        optionSelected = in.nextInt();
+                        int index = 0;
+                        int priority = 0;
+                        do { 
+
+                            if(in.hasNextInt()){
+                                index = in.nextInt();
+                                priority = in.nextInt();
+                            }
+                            else{
+                                String invalidInput = in.nextLine();
+                                System.out.println("ERROR: " + invalidInput + " is not a valid input!");
+                                continue;
+                            }
+                            
+
+                            if(index < 0 || index >= tickets.length){
+                                System.out.println("Please enter a valid index");
+                            }
+                            else if (priority < 1 || priority > 3){
+                                System.out.println("Please enter a valid priority");
+                            }
+                        } while ((index < 0 || index >= tickets.length) || (priority < 1 || priority > 3));
+                        
+                        priorities[index] = priority;
+                        System.out.println("Ticket: " + tickets[index] + " | Priority: " + priorities[index]);
                         break;
                     case 3:
                         System.out.println("===========");
