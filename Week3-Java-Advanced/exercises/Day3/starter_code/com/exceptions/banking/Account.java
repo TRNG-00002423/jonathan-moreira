@@ -1,11 +1,15 @@
 public class Account {
-    // TODO fields: id, balance
+    private String id;
+    private double balance;
 
     public void deposit(double amount) {
-        throw new UnsupportedOperationException("TODO");
+        if(amount < 0)
+            throw new IllegalArgumentException("Cannot deposit negative amount!");
+
+        this.balance += amount;
     }
 
     public void withdraw(double amount) throws InsufficientFundsException {
-        throw new UnsupportedOperationException("TODO");
+        if()
     }
 }
