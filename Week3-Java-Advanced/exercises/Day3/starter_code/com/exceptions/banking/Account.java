@@ -10,6 +10,12 @@ public class Account {
     }
 
     public void withdraw(double amount) throws InsufficientFundsException {
-        if()
+        if(amount < 0)
+            throw new IllegalArgumentException("Cannot withdraw negative amount!");
+
+        if(amount > balance)
+            throw new InsufficientFundsException(balance - amount);
+        
+        balance -= amount;
     }
 }
