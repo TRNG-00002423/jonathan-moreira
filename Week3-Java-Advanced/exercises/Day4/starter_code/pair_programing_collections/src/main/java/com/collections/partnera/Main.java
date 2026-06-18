@@ -3,6 +3,7 @@ package com.collections.partnera;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,22 +44,15 @@ public class Main {
     }
 
     public static void topFrequentWords(int n, Map<String,Integer> dic){
-        List <Map.Entry<String, Integer>> words = new ArrayList<>();
+        List<Map.Entry<String, Integer>> words = new ArrayList<>(dic.entrySet());
+        Comparator<Map.Entry<String, Integer>> byCountDesc = 
+            Comparator.comparingInt((Map.Entry<String, Integer> e) -> e.getValue()).reversed();
+        
+        Collections.sort(words, byCountDesc);
 
-        for (Map.Entry<String, Integer> en : dic.entrySet()) {
-            words.add(en);      
-        }
-
-        Collections.sort(words, new WordCountComparator());
-
-        int count = 0;
         System.out.println("\nTop Frequent Words");
-        for(Map.Entry<String, Integer> w : words){
-            if(count == n)
-                break;
-
-            System.out.println(w);
-            count++;
-        }
+        words.stream()
+             .limit(n)
+             .forEach(System.out::println);
     }
 }
