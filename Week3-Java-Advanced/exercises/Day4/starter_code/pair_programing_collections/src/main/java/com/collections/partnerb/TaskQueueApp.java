@@ -2,6 +2,7 @@ package com.collections.partnerb;
 
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.function.Predicate;
 
 /** Partner B — drain PriorityQueue in priority order. */
 public class TaskQueueApp {
@@ -13,10 +14,15 @@ public class TaskQueueApp {
         q.offer(new Task(4, "Cut grass"));
         q.offer(new Task(2, "Do laundry"));
 
-        System.out.println("Next task: " + q.peek());
-        System.out.println("Queue size still: " + q.size());
+        System.out.println(q.peek());
+        System.out.println("Size after peek()" + q.size());
+
+        // Remove tasks too low priority to action this sprint
+        Predicate<Task> isLowPriority = t -> t.getPriority() >= 3;
+        q.removeIf(isLowPriority);
 
         while(!q.isEmpty())
             System.out.println(q.poll());
+        
     }
 }

@@ -1,0 +1,40 @@
+19:19:10.927 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: java
+19:19:10.928 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: collections
+19:19:10.928 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: maps
+19:19:10.928 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: sets
+19:19:10.929 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: queues
+19:19:10.929 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: lambdas
+19:19:10.929 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: java
+19:19:10.929 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: maps
+19:19:10.929 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: and
+19:19:10.929 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: sets
+19:19:10.929 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: and
+19:19:10.929 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: more
+19:19:10.929 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: java
+19:19:10.929 [com.collections.partnera.Main.main()] INFO  c.c.partnera.Main - Unique words found: 8
+19:19:10.930 [com.collections.partnera.Main.main()] INFO  c.c.partnera.Main - 
+Top Frequent Words
+19:19:10.930 [com.collections.partnera.Main.main()] INFO  c.c.partnera.Main - Top word: java=3
+19:19:10.930 [com.collections.partnera.Main.main()] INFO  c.c.partnera.Main - Top word: maps=2
+19:19:10.930 [com.collections.partnera.Main.main()] INFO  c.c.partnera.Main - First: and
+19:19:10.930 [com.collections.partnera.Main.main()] INFO  c.c.partnera.Main - Last: sets
+19:19:13.957 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: java
+19:19:13.959 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: collections
+19:19:13.959 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: maps
+19:19:13.959 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: sets
+19:19:13.959 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: queues
+19:19:13.959 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: lambdas
+19:19:13.960 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: java
+19:19:13.960 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: maps
+19:19:13.960 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: and
+19:19:13.960 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: sets
+19:19:13.960 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: and
+19:19:13.960 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: more
+19:19:13.960 [com.collections.partnera.Main.main()] DEBUG c.c.partnera.Main - Token: java
+19:19:13.960 [com.collections.partnera.Main.main()] INFO  c.c.partnera.Main - Unique words found: 8
+19:19:13.961 [com.collections.partnera.Main.main()] INFO  c.c.partnera.Main - 
+Top Frequent Words
+19:19:13.961 [com.collections.partnera.Main.main()] INFO  c.c.partnera.Main - Top word: java=3
+19:19:13.961 [com.collections.partnera.Main.main()] INFO  c.c.partnera.Main - Top word: maps=2
+19:19:13.961 [com.collections.partnera.Main.main()] INFO  c.c.partnera.Main - First: and
+19:19:13.961 [com.collections.partnera.Main.main()] INFO  c.c.partnera.Main - Last: sets
