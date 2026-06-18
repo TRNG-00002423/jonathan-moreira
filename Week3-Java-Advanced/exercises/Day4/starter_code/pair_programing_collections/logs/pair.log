@@ -38,3 +38,7 @@ Top Frequent Words
 19:19:13.961 [com.collections.partnera.Main.main()] INFO  c.c.partnera.Main - Top word: maps=2
 19:19:13.961 [com.collections.partnera.Main.main()] INFO  c.c.partnera.Main - First: and
 19:19:13.961 [com.collections.partnera.Main.main()] INFO  c.c.partnera.Main - Last: sets
+19:39:07.486 [com.collections.partnerb.TaskQueueApp.main()] INFO  c.c.p.TaskQueueApp - Task{priority=1, description=Clean bathroom}
+19:39:07.488 [com.collections.partnerb.TaskQueueApp.main()] INFO  c.c.p.TaskQueueApp - Size after peek() 4
+19:39:07.488 [com.collections.partnerb.TaskQueueApp.main()] DEBUG c.c.p.TaskQueueApp - Task{priority=1, description=Clean bathroom}
+19:39:07.488 [com.collections.partnerb.TaskQueueApp.main()] DEBUG c.c.p.TaskQueueApp - Task{priority=2, description=Do laundry}
