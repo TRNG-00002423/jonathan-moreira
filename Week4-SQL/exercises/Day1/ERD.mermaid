@@ -18,14 +18,14 @@ erDiagram
     ORDERS {
         int order_id PK
         int customer_id FK
-        timedate date
+        datetime date
         string shipping_address
         string status
     }
 
     ORDER_LINES {
-        int order_id PK FK
-        int product_id PK FK
+        int order_id FK
+        int product_id FK
         int quantity
         decimal price_at_time_of_sale
     }
