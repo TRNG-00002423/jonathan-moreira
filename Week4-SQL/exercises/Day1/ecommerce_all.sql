@@ -1,6 +1,6 @@
 BEGIN;
 
-DROP TABLE IF EXISTS order_line CASCADE;
+DROP TABLE IF EXISTS order_lines CASCADE;
 DROP TABLE IF EXISTS products CASCADE;
 DROP TABLE IF EXISTS orders CASCADE;
 DROP TABLE IF EXISTS customers CASCADE;
@@ -52,4 +52,18 @@ INSERT INTO orders (customer_id, date, shipping_address, status)
 VALUES 
     (1,'2024-03-15 10:30:00', '456 xyz', 'shipped'),
     (2,'2024-03-16 12:00:00', '123 abc', 'pending');
-	
+
+
+INSERT INTO order_lines (order_id, product_id, quantity, unit_price)
+VALUES 
+    (1, 1, 1, 799.99),  -- 1 Laptop Pro
+    (2, 2, 2, 19.99),  -- 1 Wireless Mouse
+    (2, 3, 1, 289.99);   -- 1 Standing Desk
+
+UPDATE products SET unit_price = 899.99 WHERE product_id = 1;
+
+SELECT unit_price FROM products WHERE product_id = 1;
+SELECT unit_price FROM order_lines WHERE order_id = 1 AND product_id = 1;
+
+UPDATE orders SET status = 'cancelled' WHERE status = 'pending' AND order_id = 2;
+SELECT * FROM orders;
