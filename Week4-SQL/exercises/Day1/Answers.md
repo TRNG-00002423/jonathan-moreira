@@ -28,6 +28,7 @@ i. customers - surrogate
     email       (UNIQUE)
 ii. products - surrogate
     product_id  (PK)
+    sku
 iii. orders  - surrogate
     order_id    (PK)
 iv. order_lines - natural (composite PK)
