@@ -1,0 +1,50 @@
+-- 1. INNER JOIN: List every paid order: customer email, order_id, placed_at, line revenue sum for that order (SUM(qty * unit_price)).
+SELECT c.email, oh.order_id, oh.placed_at, SUM(ol.qty * ol.unit_price)
+FROM customer c
+INNER JOIN order_header oh ON c.customer_id = oh.customer_id
+INNER JOIN order_line ol ON ol.order_id = oh.order_id
+WHERE oh.status = 'PAID'
+GROUP BY c.email, oh.order_id, oh.placed_at;
+
+-- 2. LEFT JOIN: List all customers and their most recent order id (if any). Include customers with no orders (order_id NULL).
+SELECT c.full_name, oh.order_id FROM customer c
+LEFT JOIN order_header oh ON oh.customer_id = c.customer_id
+LEFT JOIN (SELECT customer_id, MAX(placed_at) as most_recent FROM order_header GROUP BY customer_id) oc ON oc.customer_id = c.customer_id
+AND oh.placed_at = oc.most_recent;
+
+-- 3. RIGHT JOIN: Same logical data as (2) but implement with RIGHT JOIN (hint: flip table order so you still “start” from customers mentally — comment why you ordered tables that way).
+SELECT c.full_name, oh.order_id FROM order_header oh
+RIGHT JOIN customer c ON c.customer_id = oh.customer_id
+LEFT JOIN (SELECT customer_id, MAX(placed_at) as most_recent FROM order_header GROUP BY customer_id) oc ON oc.customer_id = c.customer_id
+AND oh.placed_at = oc.most_recent;
+
+-- 4. FULL OUTER JOIN: Produce a report showing all customers and all orders, pairing where customer_id matches; include unmatched rows on either side with NULLs.
+SELECT * FROM customer c
+FULL OUTER JOIN order_header o
+ON c.customer_id = o.customer_id;
+
+-- 5. CROSS JOIN (controlled): Build a small Cartesian product: each product paired with a literal status dimension you create via an inline VALUES list (e.g. ('STOCK_OK','STOCK_LOW') thresholds are optional). Cap the result: WHERE or small dimension so you do not explode row counts.
+SELECT * FROM product p
+CROSS JOIN (VALUES ('STOCK_OK'), ('STOCK_LOW')) AS status_dim(status)
+LIMIT 10;
+
+-- 6. Aggregate + HAVING: Per customer, show order_count and total spend; include only customers with total spend > 25.
+SELECT oh.customer_id, SUM(ol.unit_price * ol.qty) as total_spent, COUNT(oh.order_id) as order_count FROM order_line ol 
+INNER JOIN order_header oh ON oh.order_id = ol.order_id
+GROUP BY oh.customer_id
+HAVING SUM(ol.unit_price * ol.qty) > 25.00;
+
+-- 7. Subquery: Products that appear on more than one distinct order (by order_id).
+SELECT * FROM product
+WHERE product_id IN (
+	SELECT ol.product_id
+	FROM order_line ol
+	GROUP BY ol.product_id
+	HAVING COUNT(DISTINCT ol.order_id) > 1);
+
+-- 8. Set operation: Use UNION ALL to combine two SELECTs with compatible columns (e.g. “active customers” vs “customers with paid orders” — define the sets clearly in comments).
+SELECT DISTINCT customer_id FROM order_header
+UNION ALL
+SELECT customer_id FROM order_header
+WHERE status = 'PAID';
+
