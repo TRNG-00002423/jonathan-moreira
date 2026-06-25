@@ -19,4 +19,25 @@ AS $$
 		
 $$;
 
+--  Functions that return values are convenient and concise in PostgreSQL.
+--  Some database systems emphasize stored procedures with OUT/INOUT parameters,
+--  so Procedure A may be more portable across different RDBMS implementations.
+
+CREATE OR REPLACE FUNCTION fetch_order_total(p_order_id INTEGER)
+RETURNS NUMERIC(12,2)
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    v_total NUMERIC(12,2);
+BEGIN
+    SELECT COALESCE(SUM(qty * unit_price), 0)
+    INTO v_total
+    FROM order_line
+    WHERE order_id = p_order_id;
+
+    RETURN v_total;
+END;
+$$;
+
 CALL adjust_stock(1, -2);
+SELECT fetch_order_total(1);
